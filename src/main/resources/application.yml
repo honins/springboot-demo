@@ -1,0 +1,41 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /demo
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://xxx;DatabaseName=xxx
+    username: xxx
+    password: xxx
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: xxx
+    port: 6379
+    password: xxx
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 3000ms
+  devtools:
+    restart:
+      additional-paths: src/main/java
+
+jwt:
+  secret: wolwo123
+  expiration: 14400
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+debug: false
+logging:
+  level:
+    org.apache.shiro: debug
+    org.crazycake.shiro: debug
+    com.hy.jwtshiroredis.controller: debug
+    com.hy.jwtshiroredis.mbg.mapper: debug

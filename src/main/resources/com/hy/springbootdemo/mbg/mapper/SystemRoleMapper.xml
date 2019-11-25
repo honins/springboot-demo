@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.springbootdemo.mbg.mapper.SystemRoleMapper">
+    <resultMap id="BaseResultMap" type="com.hy.springbootdemo.mbg.model.SystemRole">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="roleName" jdbcType="VARCHAR" property="roleName" />
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, roleName, createTime, remark
+    </sql>
+
+    <select id="listAllRole" resultType="com.hy.springbootdemo.mbg.model.SystemRole">
+        select
+        <include refid="Base_Column_List"/>
+        from lyg_system_role
+    </select>
+
+    <select id="getRoleNameByUserId" resultType="java.lang.String">
+        select
+            roleId
+        from lyg_system_role_user
+        where staffId = #{id}
+    </select>
+
+    <select id="listPermissionByUserId" resultType="java.lang.String">
+        SELECT authName from lyg_system_authorize WHERE id in (
+            SELECT a.authId from lyg_system_role_auth a left join lyg_system_role_user b
+                                                                  on a.roleId = b.roleId
+            WHERE b.staffId = #{uid}
+        )
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from lyg_system_role
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from lyg_system_role
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.hy.springbootdemo.mbg.model.SystemRole">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT SCOPE_IDENTITY()
+        </selectKey>
+        insert into lyg_system_role (roleName, createTime, remark
+        )
+        values (#{roleName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.hy.springbootdemo.mbg.model.SystemRole">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT SCOPE_IDENTITY()
+        </selectKey>
+        insert into lyg_system_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleName != null">
+                roleName,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hy.springbootdemo.mbg.model.SystemRole">
+        update lyg_system_role
+        <set>
+            <if test="roleName != null">
+                roleName = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hy.springbootdemo.mbg.model.SystemRole">
+        update lyg_system_role
+        set roleName = #{roleName,jdbcType=VARCHAR},
+            createTime = #{createTime,jdbcType=TIMESTAMP},
+            remark = #{remark,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
