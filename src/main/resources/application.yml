@@ -25,13 +25,15 @@ spring:
       additional-paths: src/main/java
 
 jwt:
-  secret: wolwo123
+  secret: 123456
   expiration: 14400
 
 mybatis:
   mapper-locations:
     - classpath:mapper/*.xml
     - classpath*:com/**/mapper/*.xml
+    - classpath:dao/*.xml
+
 debug: false
 logging:
   level:

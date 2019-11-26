@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.demo.dao.SysPermissionDao">
+
+    <select id="listRoleNameByUserId" resultType="java.lang.String">
+        SELECT
+            roleName
+        FROM
+            lyg_system_role
+        WHERE
+            id IN ( SELECT roleId FROM lyg_system_role_user WHERE staffId =  #{id} )
+    </select>
+    <select id="listPermissionByUserId" resultType="java.lang.String">
+        SELECT authName from lyg_system_authorize WHERE id in (
+            SELECT a.authId from lyg_system_role_auth a left join lyg_system_role_user b
+                                                                  on a.roleId = b.roleId
+            WHERE b.staffId = #{uid}
+        )
+    </select>
+</mapper>
