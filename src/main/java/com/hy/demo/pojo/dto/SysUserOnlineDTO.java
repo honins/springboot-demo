@@ -1,4 +1,4 @@
-package com.hy.demo.dto;
+package com.hy.demo.pojo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +16,6 @@ public class SysUserOnlineDTO {
 
     private Integer count;
 
-    private List<OnlineUserDto> listSysUser;
+    private List<OnlineUserDTO> listSysUser;
 
 }

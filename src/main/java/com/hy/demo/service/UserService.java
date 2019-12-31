@@ -1,8 +1,8 @@
 package com.hy.demo.service;
 
 
-import com.hy.demo.dto.SysUserDTO;
-import com.hy.demo.dto.UserTokenDto;
+import com.hy.demo.pojo.dto.SysUserDTO;
+import com.hy.demo.pojo.dto.UserTokenDTO;
 
 /**
  * Created by hy on 2019/9/4 13:59
@@ -12,5 +12,5 @@ public interface UserService {
 
     SysUserDTO getUser(Integer uid);
 
-    UserTokenDto login(String username, String password);
+    UserTokenDTO login(String username, String password);
 }

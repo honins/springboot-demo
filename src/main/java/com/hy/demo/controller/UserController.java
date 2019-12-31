@@ -2,11 +2,13 @@ package com.hy.demo.controller;
 
 import com.hy.demo.common.CommonResult;
 import com.hy.demo.component.constant.RedisConstant;
-import com.hy.demo.dto.*;
+import com.hy.demo.pojo.dto.*;
+import com.hy.demo.pojo.param.LoginParam;
 import com.hy.demo.service.AdminService;
 import com.hy.demo.service.UserService;
 import com.hy.demo.util.JedisUtil;
 import com.hy.demo.util.JwtUtil;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.DisabledAccountException;
@@ -16,24 +18,20 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 
 /**
  * @author hy
  */
 @RestController
-@RequestMapping(value = "/auth")
-public class LoginController {
+@RequestMapping(value = "/user")
+public class UserController {
 
-    private Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserService userService;
@@ -44,10 +42,11 @@ public class LoginController {
      * 登陆
      * @return
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public CommonResult<UserTokenDto> submitLogin(@RequestBody @Valid LoginParam param) {
+    @ApiOperation(value = "登陆",notes = "输入账号密码登陆")
+    @PostMapping(value = "/login")
+    public CommonResult<UserTokenDTO> submitLogin(@RequestBody @Valid LoginParam param) {
         try {
-            UserTokenDto tokenDto = userService.login(param.getUsername(), param.getPassword());
+            UserTokenDTO tokenDto = userService.login(param.getUsername(), param.getPassword());
             return CommonResult.success(tokenDto);
         } catch (DisabledAccountException e) {
             return CommonResult.failed("账户已被禁用");
@@ -61,7 +60,8 @@ public class LoginController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @ApiOperation(value = "首页",notes = "需身份验证")
+    @GetMapping(value = "/index")
     public CommonResult loginSuccessMessage(HttpServletRequest request) {
         Subject subject = SecurityUtils.getSubject();
         String jwtToken = String.valueOf(subject.getPrincipals());
@@ -78,6 +78,7 @@ public class LoginController {
      * @param
      */
     @GetMapping("/online")
+    @ApiOperation(value = "获取在线用户",notes = "需验证权限")
     @RequiresPermissions(logical = Logical.AND, value = {"sys:online:view"})
     public CommonResult online() {
         SysUserOnlineDTO online = adminService.getOnline();
@@ -90,6 +91,7 @@ public class LoginController {
      * @return
      */
     @GetMapping("/online/remove/{uid}")
+    @ApiOperation(value = "在线踢人",notes = "需验证权限")
     @RequiresPermissions(value = {"sys:online:remove"})
     public CommonResult remove(@PathVariable("uid") Integer id){
         SysUserDTO sysUserDTO = userService.getUser(id);

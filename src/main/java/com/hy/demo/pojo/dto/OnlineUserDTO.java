@@ -1,4 +1,4 @@
-package com.hy.demo.dto;
+package com.hy.demo.pojo.dto;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import lombok.Data;
  * @date on 2019/11/26 11:31
  */
 @Data
-public class OnlineUserDto {
+public class OnlineUserDTO {
 
     private Integer uid;
     private String username;

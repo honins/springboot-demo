@@ -1,7 +1,7 @@
 package com.hy.demo.util;
 
 import com.hy.demo.component.exception.CustomUnauthorizedException;
-import com.hy.demo.dto.SysUserDTO;
+import com.hy.demo.pojo.dto.SysUserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

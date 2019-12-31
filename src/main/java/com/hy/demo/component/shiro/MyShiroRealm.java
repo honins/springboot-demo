@@ -2,8 +2,8 @@ package com.hy.demo.component.shiro;
 
 
 import com.hy.demo.component.constant.RedisConstant;
-import com.hy.demo.dto.JwtToken;
-import com.hy.demo.dto.SysUserDTO;
+import com.hy.demo.pojo.dto.JwtToken;
+import com.hy.demo.pojo.dto.SysUserDTO;
 import com.hy.demo.service.SysRoleService;
 import com.hy.demo.service.UserService;
 import com.hy.demo.util.JedisUtil;

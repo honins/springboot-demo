@@ -1,4 +1,4 @@
-package com.hy.demo.dto;
+package com.hy.demo.pojo.dto;
 
 import com.hy.demo.mbg.model.SysUser;
 import lombok.Getter;

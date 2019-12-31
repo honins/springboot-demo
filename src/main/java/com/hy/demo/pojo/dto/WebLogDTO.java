@@ -1,4 +1,4 @@
-package com.hy.demo.dto;
+package com.hy.demo.pojo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class WebLog {
+public class WebLogDTO {
     /**
      * 操作描述
      */

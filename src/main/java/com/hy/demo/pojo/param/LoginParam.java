@@ -1,4 +1,4 @@
-package com.hy.demo.dto;
+package com.hy.demo.pojo.param;
 
 /**
  * Created by hy on 2019/9/4 9:33

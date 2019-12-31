@@ -1,9 +1,9 @@
 package com.hy.demo.service.impl;
 
 import com.hy.demo.component.constant.RedisConstant;
-import com.hy.demo.dto.OnlineUserDto;
-import com.hy.demo.dto.SysUserDTO;
-import com.hy.demo.dto.SysUserOnlineDTO;
+import com.hy.demo.pojo.dto.OnlineUserDTO;
+import com.hy.demo.pojo.dto.SysUserDTO;
+import com.hy.demo.pojo.dto.SysUserOnlineDTO;
 import com.hy.demo.service.AdminService;
 import com.hy.demo.service.UserService;
 import com.hy.demo.util.JedisUtil;
@@ -25,14 +25,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public SysUserOnlineDTO getOnline() {
-        List<OnlineUserDto> userDtos = new ArrayList<>();
+        List<OnlineUserDTO> userDtos = new ArrayList<>();
         // 查询所有Redis键
         Set<String> keys = JedisUtil.keysS(RedisConstant.PREFIX_SHIRO_CACHE_ACCOUNT + "*");
         for (String key : keys) {
             if (JedisUtil.exists(key)) {
                 // 根据:分割key，获取最后一个字符(帐号)
                 String[] keyArray = key.split(":");
-                OnlineUserDto userDto = new OnlineUserDto();
+                OnlineUserDTO userDto = new OnlineUserDTO();
                 userDto.setUid(Integer.valueOf(keyArray[keyArray.length - 1]));
                 SysUserDTO user = userService.getUser(userDto.getUid());
                 userDto.setUsername(user.getUsername());

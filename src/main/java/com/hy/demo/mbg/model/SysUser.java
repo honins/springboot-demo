@@ -1,6 +1,5 @@
 package com.hy.demo.mbg.model;
 
-import com.hy.demo.dto.SysUserDTO;
 import lombok.Getter;
 import lombok.Setter;
 

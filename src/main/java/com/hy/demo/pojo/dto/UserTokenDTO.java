@@ -1,4 +1,4 @@
-package com.hy.demo.dto;
+package com.hy.demo.pojo.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -10,14 +10,14 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class UserTokenDto {
+public class UserTokenDTO {
 
     private static final long serialVersionUID = 1282057025599847895L;
 
-    @ApiModelProperty(value = "token")
+    @ApiModelProperty(value = "token",example = "asdas.avd.sdgfwdv")
     private String token;
 
-    @ApiModelProperty(value = "过期时间-s")
+    @ApiModelProperty(value = "过期时间，单位秒")
     private Long expireTime;
 
 }

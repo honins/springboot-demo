@@ -3,8 +3,8 @@ package com.hy.demo.service.impl;
 import com.hy.demo.component.constant.RedisConstant;
 import com.hy.demo.component.exception.CustomException;
 import com.hy.demo.dao.UserDao;
-import com.hy.demo.dto.SysUserDTO;
-import com.hy.demo.dto.UserTokenDto;
+import com.hy.demo.pojo.dto.SysUserDTO;
+import com.hy.demo.pojo.dto.UserTokenDTO;
 import com.hy.demo.mbg.mapper.UserMapper;
 import com.hy.demo.mbg.model.User;
 import com.hy.demo.mbg.model.UserExample;
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserTokenDto login(String username, String password) {
+    public UserTokenDTO login(String username, String password) {
         SysUserDTO userDTO = userDao.getUser(username, password);
         if (userDTO == null){
             throw new CustomException("账号密码错误");
@@ -54,6 +54,6 @@ public class UserServiceImpl implements UserService {
         String token = JwtUtil.createToken(userDTO.getUid(),currentTimeMillis);
         //将账户和创建时间存进redis
         JedisUtil.setObject(RedisConstant.PREFIX_SHIRO_CACHE_ACCOUNT + userDTO.getUid(), currentTimeMillis, JwtUtil.getExpiration().intValue());
-        return new UserTokenDto(token,JwtUtil.getExpiration());
+        return new UserTokenDTO(token,JwtUtil.getExpiration());
     }
 }
