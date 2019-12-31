@@ -2,21 +2,22 @@ package com.hy.demo.controller;
 
 import com.hy.demo.common.CommonResult;
 import com.hy.demo.component.constant.RedisConstant;
-import com.hy.demo.pojo.dto.*;
+import com.hy.demo.pojo.dto.SysUserDTO;
+import com.hy.demo.pojo.dto.SysUserOnlineDTO;
+import com.hy.demo.pojo.dto.UserTokenDTO;
 import com.hy.demo.pojo.param.LoginParam;
 import com.hy.demo.service.AdminService;
 import com.hy.demo.service.UserService;
 import com.hy.demo.util.JedisUtil;
 import com.hy.demo.util.JwtUtil;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +28,10 @@ import javax.validation.Valid;
 /**
  * @author hy
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
-
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserService userService;
@@ -42,8 +42,8 @@ public class UserController {
      * 登陆
      * @return
      */
-    @ApiOperation(value = "登陆",notes = "输入账号密码登陆")
     @PostMapping(value = "/login")
+    @ApiOperation(value = "登陆",notes = "输入账号密码登陆")
     public CommonResult<UserTokenDTO> submitLogin(@RequestBody @Valid LoginParam param) {
         try {
             UserTokenDTO tokenDto = userService.login(param.getUsername(), param.getPassword());
@@ -60,8 +60,8 @@ public class UserController {
      * @param request
      * @return
      */
-    @ApiOperation(value = "首页",notes = "需身份验证")
     @GetMapping(value = "/index")
+    @ApiOperation(value = "首页",notes = "需身份验证")
     public CommonResult loginSuccessMessage(HttpServletRequest request) {
         Subject subject = SecurityUtils.getSubject();
         String jwtToken = String.valueOf(subject.getPrincipals());
@@ -90,7 +90,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @GetMapping("/online/remove/{uid}")
+    @PostMapping("/online/remove/{uid}")
     @ApiOperation(value = "在线踢人",notes = "需验证权限")
     @RequiresPermissions(value = {"sys:online:remove"})
     public CommonResult remove(@PathVariable("uid") Integer id){
