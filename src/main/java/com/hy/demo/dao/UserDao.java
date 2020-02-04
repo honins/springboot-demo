@@ -1,6 +1,6 @@
 package com.hy.demo.dao;
 
-import com.hy.demo.pojo.dto.SysUserDTO;
+import com.hy.demo.data.dto.SysUserDTO;
 import org.apache.ibatis.annotations.Param;
 
 /**

@@ -3,16 +3,17 @@ package com.hy.demo.service.impl;
 import com.hy.demo.component.constant.RedisConstant;
 import com.hy.demo.component.exception.CustomException;
 import com.hy.demo.dao.UserDao;
-import com.hy.demo.pojo.dto.SysUserDTO;
-import com.hy.demo.pojo.dto.UserTokenDTO;
-import com.hy.demo.mbg.mapper.UserMapper;
-import com.hy.demo.mbg.model.User;
-import com.hy.demo.mbg.model.UserExample;
+import com.hy.demo.data.dto.SysUserDTO;
+import com.hy.demo.data.dto.UserTokenDTO;
+import com.hy.demo.mapper.UserMapper;
+import com.hy.demo.model.User;
 import com.hy.demo.service.UserService;
-import com.hy.demo.util.JedisUtil;
-import com.hy.demo.util.JwtUtil;
+import com.hy.demo.common.util.JedisUtil;
+import com.hy.demo.common.util.JwtUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.util.Sqls;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,11 +36,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public SysUserDTO getUser(Integer uid) {
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andIdEqualTo(uid);
-        List<User> users = userMapper.selectByExample(userExample);
+        Example example = Example.builder(User.class)
+                .where(Sqls.custom().andEqualTo("id", uid))
+                .orderByDesc("create_time")
+                .build();
+        List<User> list = userMapper.selectByExample(example);
         SysUserDTO sysUserDTO = new SysUserDTO();
-        BeanUtils.copyProperties(users.get(0), sysUserDTO);
+        BeanUtils.copyProperties(list.get(0), sysUserDTO);
         return sysUserDTO;
     }
 

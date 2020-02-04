@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:sqlserver://xxx;DatabaseName=xxx
-    username: xxx
-    password: xxx
+    url: jdbc:mysql://localhost:3306/demo?serverTimezone=GMT
+    username: root
+    password:
     type: com.alibaba.druid.pool.DruidDataSource
   redis:
     host: xxx
@@ -34,7 +34,7 @@ mybatis:
     - classpath*:com/**/mapper/*.xml
     - classpath:dao/*.xml
 
-debug: false
+debug: true
 logging:
   level:
     org.apache.shiro: debug

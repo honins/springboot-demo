@@ -1,6 +1,6 @@
 package com.hy.demo.service;
 
-import com.hy.demo.pojo.dto.SysUserOnlineDTO;
+import com.hy.demo.data.dto.SysUserOnlineDTO;
 
 /**
  * @author Created by hy

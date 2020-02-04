@@ -2,14 +2,14 @@ package com.hy.demo.controller;
 
 import com.hy.demo.common.CommonResult;
 import com.hy.demo.component.constant.RedisConstant;
-import com.hy.demo.pojo.dto.SysUserDTO;
-import com.hy.demo.pojo.dto.SysUserOnlineDTO;
-import com.hy.demo.pojo.dto.UserTokenDTO;
-import com.hy.demo.pojo.param.LoginParam;
+import com.hy.demo.data.dto.SysUserDTO;
+import com.hy.demo.data.dto.SysUserOnlineDTO;
+import com.hy.demo.data.dto.UserTokenDTO;
+import com.hy.demo.data.form.LoginForm;
 import com.hy.demo.service.AdminService;
 import com.hy.demo.service.UserService;
-import com.hy.demo.util.JedisUtil;
-import com.hy.demo.util.JwtUtil;
+import com.hy.demo.common.util.JedisUtil;
+import com.hy.demo.common.util.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -44,7 +44,7 @@ public class UserController {
      */
     @PostMapping(value = "/login")
     @ApiOperation(value = "登陆",notes = "输入账号密码登陆")
-    public CommonResult<UserTokenDTO> submitLogin(@RequestBody @Valid LoginParam param) {
+    public CommonResult<UserTokenDTO> submitLogin(@RequestBody @Valid LoginForm param) {
         try {
             UserTokenDTO tokenDto = userService.login(param.getUsername(), param.getPassword());
             return CommonResult.success(tokenDto);

@@ -2,13 +2,13 @@ package com.hy.demo.component.shiro;
 
 
 import com.hy.demo.component.constant.RedisConstant;
-import com.hy.demo.pojo.dto.JwtToken;
-import com.hy.demo.pojo.dto.SysUserDTO;
+import com.hy.demo.data.JwtToken;
+import com.hy.demo.data.dto.SysUserDTO;
 import com.hy.demo.service.SysRoleService;
 import com.hy.demo.service.UserService;
-import com.hy.demo.util.JedisUtil;
-import com.hy.demo.util.JwtRedisUtil;
-import com.hy.demo.util.JwtUtil;
+import com.hy.demo.common.util.JedisUtil;
+import com.hy.demo.common.util.JwtRedisUtil;
+import com.hy.demo.common.util.JwtUtil;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;

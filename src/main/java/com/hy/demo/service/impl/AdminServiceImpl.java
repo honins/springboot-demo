@@ -1,12 +1,12 @@
 package com.hy.demo.service.impl;
 
 import com.hy.demo.component.constant.RedisConstant;
-import com.hy.demo.pojo.dto.OnlineUserDTO;
-import com.hy.demo.pojo.dto.SysUserDTO;
-import com.hy.demo.pojo.dto.SysUserOnlineDTO;
+import com.hy.demo.data.dto.OnlineUserDTO;
+import com.hy.demo.data.dto.SysUserDTO;
+import com.hy.demo.data.dto.SysUserOnlineDTO;
 import com.hy.demo.service.AdminService;
 import com.hy.demo.service.UserService;
-import com.hy.demo.util.JedisUtil;
+import com.hy.demo.common.util.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

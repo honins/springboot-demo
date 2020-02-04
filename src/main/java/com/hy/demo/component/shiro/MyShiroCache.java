@@ -2,9 +2,9 @@ package com.hy.demo.component.shiro;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.hy.demo.component.constant.RedisConstant;
-import com.hy.demo.util.JedisUtil;
-import com.hy.demo.util.JwtUtil;
-import com.hy.demo.util.PropertiesUtil;
+import com.hy.demo.common.util.JedisUtil;
+import com.hy.demo.common.util.JwtUtil;
+import com.hy.demo.common.util.PropertiesUtil;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.springframework.stereotype.Component;

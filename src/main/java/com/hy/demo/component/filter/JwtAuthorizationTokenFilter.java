@@ -3,7 +3,7 @@ package com.hy.demo.component.filter;
 import cn.hutool.json.JSONUtil;
 import com.hy.demo.common.CommonResult;
 import com.hy.demo.component.exception.CustomException;
-import com.hy.demo.pojo.dto.JwtToken;
+import com.hy.demo.data.JwtToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
